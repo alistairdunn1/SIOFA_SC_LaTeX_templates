@@ -1,0 +1,178 @@
+% Document class
+\documentclass[english,12pt,a4paper,final,twoside,titlepage,pdftex]{article}
+
+% Caption package for formating figure and label captions
+\usepackage[font=bf,format=hang,labelsep=colon,singlelinecheck=false,compatibility=false]{caption}
+
+% Misc packages
+\usepackage{float} % for floating tables and graphics
+\usepackage{setspace} % for defining spacing between lines
+\usepackage{cmap} % allow searching in pdf documents
+\usepackage{tabulary} % better tables
+
+% hyperref for HTML links within pdf 
+\usepackage[bookmarks=true,bookmarksopen=false,bookmarksnumbered=true,pdfpagelayout=TwoPageRight,
+            pdftitle={SIOFA Scientific Committee}, 
+            pdfauthor={A Member}, 
+            pdftex]{hyperref}
+\hypersetup{
+	breaklinks=true,      % allow line breaks in URLs
+	colorlinks=true,      % use colour to define links 
+	linkcolor=black,      % colour of internal links
+	citecolor=black,      % colour of links to bibliography
+	filecolor=black,      % colour of file links
+	urlcolor=red          % colour of external links
+}
+\pdfadjustspacing=1
+
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\newcommand\AddVspace{\\[0 pt]} % artificial method of adding vertical space within equations
+\newcommand\CheckBoxTick{$\text{\rlap{$\checkmark$}}\square$}
+\newcommand\CheckBoxUntick{$\square$}
+
+% Allow colour for HTML links
+\usepackage{xcolor}
+\definecolor{darkgray}{gray}{0.20}
+\definecolor{blue}{HTML}{2F5496}
+
+% Geometry for A4 layout like MS-Word defaults
+\usepackage[left=2.54cm,top=2.54cm,bottom=3.17cm,right=3.17cm]{geometry}
+
+% Natlib to better cite references (round brackets, commas between refs, and sorted)
+\usepackage[round,comma,sort]{natbib}
+
+% Graphics (no postscript files.. just use jpeg, png, etc)
+\usepackage[dvips]{graphicx}
+\usepackage{pslatex} 
+
+% Add a dot after section headings
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname.\quad}
+\makeatother
+
+% Page style
+\usepackage{fancyhdr}
+\pagestyle{plain}
+\headheight 15pt
+\setlength{\parindent}{0pt} % No indentation at start of paragraph
+\setlength{\baselineskip}{1ex plus 0.2ex minus 0.1ex}
+\setlength{\parskip}{1.1ex} % Gap between paragraphs
+\raggedbottom % prefer space at the bottom of page
+\usepackage[bottom]{footmisc}
+\renewcommand{\headrulewidth}{0pt}
+
+% Make equation numbers be section number then equation number
+\makeatletter
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\def\thefigure{\thesection.\@arabic\c@figure}
+\def\thetable{\thesection.\@arabic\c@table}
+\def\theequation{\thesection.\@arabic\c@equation}
+\makeatother
+
+%% stop figures from going onto a page by themselves 
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+% Minimise hyphen use
+\hyphenpenalty=5000
+\tolerance=1000
+
+% Compact titles
+\usepackage[small,compact]{titlesec} 
+
+% Section header fonts
+\usepackage{xcolor}
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\large \color{blue}} % Normal sized arial style 
+
+%% HEADER %%
+\fancypagestyle{firststyle} {
+	\chead{\includegraphics[height = 3.5cm]{images/SIOFA_logo.jpg}}
+}
+
+% Set all fonts as sans serif
+\renewcommand{\familydefault}{\sfdefault}
+
+% Load package to count the number of pages in document
+% For getting number of pages in document (NOT the last page number printed), use \ref{TotPages}
+% Load this last to ensure its macros are not overwritten
+\usepackage{totpages} 
+
+%Begin the document
+\begin{document}
+	\hbadness=10000 % to deal with underfull hbox warnings
+	\sloppy % use sloppy paras
+
+	% Title page
+	\pdfbookmark[1]{SIOFA Scientific Committee Report}{title}
+	
+    \begin{center}
+    \thispagestyle{firststyle}
+    \vspace*{2cm}
+	\small{\textbf{8th Meeting of the Scientific Committee (SC8)}}
+
+	\vspace*{0.25cm}
+	\emph{Tenerife, Spain, 17-18 March 2023}
+	
+	\vspace*{1cm}
+	\textbf{SC-YY-XX\\ \emph{[number allocated by the SIOFA Secretariat]}}\\
+	\vspace*{0.5cm}	
+	\huge{Document title} \\
+	\vspace*{1cm}	
+	\large{Author}
+    \end{center}
+
+	\begin{table}[H]
+	  \begin{tabular}{|m{4cm}|m{10cm}|}
+	  	\hline
+	  	\textbf{\color{blue}{Document type}} &  Working paper \CheckBoxTick \\
+	  	& Information paper \CheckBoxUntick \\
+        \hline
+        \textbf{\color{blue}{Distribution}} & Public \CheckBoxTick \\
+        & Restricted \footnotemark[1] \CheckBoxUntick\\
+        & Closed session document \footnotemark[2] \CheckBoxUntick\\
+	  	\hline
+	  	\multicolumn{2}{|l|}{\textbf{\color{blue}{Abstract}}} \\
+		\hline
+        \multicolumn{2}{|l|}{Abstract text} \\
+        \hline
+      \end{tabular}%
+	\end{table}
+
+
+\footnotetext[1]{Documents available only to members invited to closed sessions.}
+\footnotetext[2]{Restricted documents may contain confidential information. Please do not distribute restricted documents in any form without the explicit permission of the SIOFA Secretariat and the data owner(s)/provider(s).}
+
+	\newpage
+
+	\begin{table}[H]
+	  \begin{tabular}{|p{14.5cm}|}
+	  	\hline
+	  	\textbf{\color{blue}{Recommendations }}\color{blue}{(for proposals and working papers only)} \\
+		\hline
+        \include{Recomendations.tex} \\
+ 		\hline
+ 	  \end{tabular}%
+    \end{table}
+
+	\pagenumbering{arabic} % Page numbers a arabic numerals
+	
+	\newpage
+	
+	\include{Report.tex}
+	
+	% Referencing
+	\bibliographystyle{plainnat}
+	\renewcommand{\bibsection}{%
+		\section{References}}
+	\setcitestyle{round,aysep={},yysep={;}%
+	}
+	
+	\bibliography{bibliography/SIOFA}
+	
+\end{document}
+%End
