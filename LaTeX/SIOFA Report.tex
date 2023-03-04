@@ -1,5 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX template for SIOFA Scientific Reports
+% Version: March 2023
+% This file should not require any editing, 
+%   except for the check boxes for Document Type and Distribution
+% Useage: 
+%   1. ReportProporties.tex to enter the meeting, report title, author, report numbers, etc.
+%   2. ReportAbstract.tex to enter the abstract
+%   3. ReportRecomendations.tex to enter the recomendations
+%   4. ReportBody.tex for the report text
+%   5. SIOFA.bib for the bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Document class
 \documentclass[english,12pt,a4paper,final,twoside,titlepage,pdftex]{article}
+
+% Define Report Number
+\input{ReportProperties.tex}
+\title{\ReportTitle}
+\author{\ReportAuthor}
 
 % Caption package for formating figure and label captions
 \usepackage[font=bf,format=hang,labelsep=colon,singlelinecheck=false,compatibility=false]{caption}
@@ -12,8 +30,6 @@
 
 % hyperref for HTML links within pdf 
 \usepackage[bookmarks=true,bookmarksopen=false,bookmarksnumbered=true,pdfpagelayout=TwoPageRight,
-            pdftitle={SIOFA Scientific Committee}, 
-            pdfauthor={A Member}, 
             pdftex]{hyperref}
 \hypersetup{
 	breaklinks=true,      % allow line breaks in URLs
@@ -21,7 +37,7 @@
 	linkcolor=black,      % colour of internal links
 	citecolor=black,      % colour of links to bibliography
 	filecolor=black,      % colour of file links
-	urlcolor=red          % colour of external links
+	urlcolor=red,         % colour of external links
 }
 \pdfadjustspacing=1
 
@@ -115,17 +131,17 @@
   \begin{center}
     \thispagestyle{firststyle}
     \vspace*{2cm}
-    \small{\textbf{8th Meeting of the Scientific Committee (SC8)}}
+    \textbf{\ReportMeeting}
 
     \vspace*{0.25cm}
-    \emph{Tenerife, Spain, 17-18 March 2023}
+    \emph{\ReportLocation}
 		
     \vspace*{1cm}
-    \textbf{SC-YY-XX\\ \emph{[number allocated by the SIOFA Secretariat]}}\\
+    \textbf{\ReportNumber}\\
     \vspace*{0.5cm}	
-    \huge{Document title} \\
+    \huge{\ReportTitle} \\
     \vspace*{1cm}	
-    \large{Author}
+    \large{\ReportAuthor}
   \end{center}
 
   \begin{table}[H]
@@ -142,7 +158,7 @@
       \multicolumn{2}{|l|}{\textbf{\color{blue}{Abstract}}} \\
       \hline
       % Abstract
-      \multicolumn{2}{|l|}{Insert the abstract text here} \\
+      \multicolumn{2}{|l|}{\input{ReportAbstract.tex}} \\
       \hline
     \end{tabular}%
   \end{table}
@@ -151,6 +167,10 @@
   \footnotetext[2]{Documents available only to members invited to closed sessions.}
 
   \newpage
+  \pagestyle{fancyplain}
+  \fancyhf{}
+  \lhead{ \fancyplain{\ReportNumber}{\ReportNumber}}
+  \cfoot{\thepage}
   \pagenumbering{arabic} % Page numbers a arabic numerals
   \setcounter{page}{2}
 
@@ -160,16 +180,15 @@
       \textbf{\color{blue}{Recommendations }}\color{blue}{(for proposals and working papers only)} \\
       \hline
       % Add the recomendations to the file Recomendations.tex
-      \include{Recomendations.tex} \\
+      \input{ReportRecomendations.tex} \\
       \hline
     \end{tabular}%
   \end{table}
 
   \newpage
-	
   % The report text can be inserted into the file Report.tex
-  \include{Report.tex}
-	
+  \include{ReportBody.tex}
+  
   % Referencing
   \bibliographystyle{plainnat}
     \renewcommand{\bibsection}{%
@@ -177,7 +196,7 @@
     \setcitestyle{round,aysep={},yysep={;}%
   }
   % Revise SIOFA.bib as required
-  \bibliography{bibliography/SIOFA}
+  \bibliography{bibliography/SIOFA.bib}
 
 \end{document}
 %End
