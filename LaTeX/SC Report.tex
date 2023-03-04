@@ -85,7 +85,6 @@
 \usepackage[small,compact]{titlesec} 
 
 % Section header fonts
-\usepackage{xcolor}
 \usepackage{sectsty}
 \allsectionsfont{\sffamily\large \color{blue}} % Normal sized arial style 
 
@@ -104,74 +103,81 @@
 
 %Begin the document
 \begin{document}
-	\hbadness=10000 % to deal with underfull hbox warnings
-	\sloppy % use sloppy paras
+  \hbadness=10000 % to deal with underfull hbox warnings
+  \sloppy % use sloppy paras
 
-	% Title page
-	\pdfbookmark[1]{SIOFA Scientific Committee Report}{title}
-	
+  % Title page
+  \pdfbookmark[1]{SIOFA Scientific Committee Report}{title}
+  % Title page
+  \pagenumbering{arabic} % Page numbers a arabic numerals
+  \pagenumbering{gobble}
+
   \begin{center}
-		\thispagestyle{firststyle}
-		\vspace*{2cm}
-		\small{\textbf{8th Meeting of the Scientific Committee (SC8)}}
+    \thispagestyle{firststyle}
+    \vspace*{2cm}
+    \small{\textbf{8th Meeting of the Scientific Committee (SC8)}}
 
-		\vspace*{0.25cm}
-		\emph{Tenerife, Spain, 17-18 March 2023}
+    \vspace*{0.25cm}
+    \emph{Tenerife, Spain, 17-18 March 2023}
 		
-		\vspace*{1cm}
-		\textbf{SC-YY-XX\\ \emph{[number allocated by the SIOFA Secretariat]}}\\
-		\vspace*{0.5cm}	
-		\huge{Document title} \\
-		\vspace*{1cm}	
-		\large{Author}
+    \vspace*{1cm}
+    \textbf{SC-YY-XX\\ \emph{[number allocated by the SIOFA Secretariat]}}\\
+    \vspace*{0.5cm}	
+    \huge{Document title} \\
+    \vspace*{1cm}	
+    \large{Author}
   \end{center}
 
-	\begin{table}[H]
-	  \begin{tabular}{|m{4cm}|m{10cm}|}
-		  \hline
-	  	\textbf{\color{blue}{Document type}} &  Working paper \CheckBoxTick \\
-	  	& Information paper \CheckBoxUntick \\
+  \begin{table}[H]
+    \begin{tabular}{|m{4cm}|m{11cm}|}
+      \hline
+       % Use \CheckBoxTick OR CheckBoxUntick
+      \textbf{\color{blue}{Document type}} &  Working paper \CheckBoxTick \\
+      & Information paper \CheckBoxUntick \\
       \hline
       \textbf{\color{blue}{Distribution}} & Public \CheckBoxTick \\
       & Restricted \footnotemark[1] \CheckBoxUntick\\
       & Closed session document \footnotemark[2] \CheckBoxUntick\\
-	  	\hline
-			\multicolumn{2}{|l|}{\textbf{\color{blue}{Abstract}}} \\
-			\hline
-			\multicolumn{2}{|l|}{Abstract text} \\
-			\hline
-		\end{tabular}%
-	\end{table}
-
-  \footnotetext[1]{Documents available only to members invited to closed sessions.}
-  \footnotetext[2]{Restricted documents may contain confidential information. Please do not distribute restricted documents in any form without the explicit permission of the SIOFA Secretariat and the data owner(s)/provider(s).}
-
-  \newpage
-
-	\begin{table}[H]
-	  \begin{tabular}{|p{14.5cm}|}
-	   	\hline
-	  	\textbf{\color{blue}{Recommendations }}\color{blue}{(for proposals and working papers only)} \\
-		  \hline
-      \include{Recomendations.tex} \\
- 		  \hline
- 	  \end{tabular}%
+      \hline
+      \multicolumn{2}{|l|}{\textbf{\color{blue}{Abstract}}} \\
+      \hline
+      % Abstract
+      \multicolumn{2}{|l|}{Insert the abstract text here} \\
+      \hline
+    \end{tabular}%
   \end{table}
 
-	\pagenumbering{arabic} % Page numbers a arabic numerals
+  \footnotetext[1]{Restricted documents may contain confidential information. Please do not distribute restricted documents in any form without the explicit permission of the SIOFA Secretariat and the data owner(s)/provider(s).}
+  \footnotetext[2]{Documents available only to members invited to closed sessions.}
+
+  \newpage
+  \pagenumbering{arabic} % Page numbers a arabic numerals
+  \setcounter{page}{2}
+
+  \begin{table}[H]
+    \begin{tabular}{|p{15cm}|}
+      \hline
+      \textbf{\color{blue}{Recommendations }}\color{blue}{(for proposals and working papers only)} \\
+      \hline
+      % Add the recomendations to the file Recomendations.tex
+      \include{Recomendations.tex} \\
+      \hline
+    \end{tabular}%
+  \end{table}
+
+  \newpage
 	
-	\newpage
+  % The report text can be inserted into the file Report.tex
+  \include{Report.tex}
 	
-	\include{Report.tex}
-	
-	% Referencing
-	\bibliographystyle{plainnat}
-	\renewcommand{\bibsection}{%
-		\section{References}}
-	\setcitestyle{round,aysep={},yysep={;}%
-	}
-	
-	\bibliography{bibliography/SIOFA}
-	
+  % Referencing
+  \bibliographystyle{plainnat}
+    \renewcommand{\bibsection}{%
+	\section{References}}
+    \setcitestyle{round,aysep={},yysep={;}%
+  }
+  % Revise SIOFA.bib as required
+  \bibliography{bibliography/SIOFA}
+
 \end{document}
 %End
