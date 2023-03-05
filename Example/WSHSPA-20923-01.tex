@@ -1,0 +1,210 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX template for SIOFA Scientific Reports
+% Version: March 2023
+% This file should not require any editing, 
+%   except for the check boxes for Document Type and Distribution (see lines 151-156)
+% Useage: 
+%   1. ReportProperties.tex to enter the meeting, report title, author, report numbers, etc.
+%   2. ReportAbstract.tex to enter the abstract
+%   3. ReportRecommendations.tex to enter the recommendations
+%   4. ReportBody.tex for the report text
+%   5. SIOFA.bib for the bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Document class
+\documentclass[english,11pt,a4paper,final,twoside,titlepage,pdftex]{article}
+
+%% Define Report number, etc.
+\input{ReportProperties.tex}
+\title{\ReportTitle}
+\author{\ReportAuthor}
+
+%% Caption package for formating figure and label captions
+\usepackage[font=bf,format=hang,labelsep=colon,singlelinecheck=false,compatibility=false]{caption}
+
+%% Misc packages
+\usepackage{float}    % for floating tables and graphics
+\usepackage{setspace} % for defining spacing between lines
+\usepackage{cmap}     % allow searching in pdf documents
+\usepackage{tabulary} % better tables
+ 
+%% hyperref for HTML links within pdf 
+\usepackage[bookmarks=true,bookmarksopen=false,bookmarksnumbered=true,pdftex]{hyperref}
+\pdfcatalog{/PageLayout /OneColumn}
+\hypersetup{
+	breaklinks=true, % allow line breaks in URLs
+	colorlinks=true, % use colour to define links 
+	linkcolor=black, % colour of internal links
+	citecolor=black, % colour of links to bibliography
+	filecolor=black, % colour of file links
+	urlcolor=red,    % colour of external links
+}
+\pdfadjustspacing=1
+
+%% Math, equations, etc.
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\newcommand\AddVspace{\\[0 pt]} % artificial method of adding vertical space within equations
+\newcommand\CheckBoxTick{$\text{\rlap{$\checkmark$}}\square$}
+\newcommand\CheckBoxUntick{$\square$}
+
+%% Allow colour for HTML links
+\usepackage{xcolor}
+\definecolor{darkgray}{gray}{0.20}
+\definecolor{blue}{HTML}{2F5496} % Define blue colour for hedings etc.
+
+%% Geometry for A4 layout like MS-Word defaults
+\usepackage[left=2.54cm,top=2.54cm,bottom=3.17cm,right=3.17cm]{geometry}
+
+%% Natlib to better cite references (round brackets, commas between refs, and sorted)
+\usepackage[round,comma,sort]{natbib}
+
+%% Graphics (no postscript files.. just use jpeg, png, etc)
+\usepackage[dvips]{graphicx}
+\usepackage{pslatex} 
+
+%% Add a dot after section headings
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname.\quad}
+\makeatother
+
+%% Page style
+\usepackage{fancyhdr}
+\pagestyle{plain}
+\headheight 15pt
+\setlength{\parindent}{0pt} % No indentation at start of paragraph
+\setlength{\baselineskip}{1ex plus 0.2ex minus 0.1ex}
+\setlength{\parskip}{1.1ex} % Gap between paragraphs
+\raggedbottom % prefer space at the bottom of page
+\usepackage[hang,flushmargin]{footmisc} %footnotes without indents
+\renewcommand{\headrulewidth}{0pt}
+
+%% Make equation numbers be section number then equation number
+\makeatletter
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+\def\thefigure{\thesection.\@arabic\c@figure}
+\def\thetable{\thesection.\@arabic\c@table}
+\def\theequation{\thesection.\@arabic\c@equation}
+\makeatother
+
+%% stop figures from going onto a page by themselves 
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+%% Minimise hyphen use
+\hyphenpenalty=5000
+\tolerance=1000
+
+%% Compact titles
+\usepackage[small,compact]{titlesec} 
+
+%% Section header fonts
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\large \color{blue}} % Normal sized arial style 
+
+%% First page style
+\fancypagestyle{firststyle} {
+	\chead{\includegraphics[height = 3.5cm]{images/SIOFA_logo.jpg}}
+}
+
+%% Set all fonts as sans serif
+\renewcommand{\familydefault}{\sfdefault}
+
+%% Load package to count the number of pages in document
+%% For getting number of pages in document (NOT the last page number printed), use \ref{TotPages}
+%% Load this last to ensure its macros are not overwritten
+\usepackage{totpages} 
+
+\usepackage{array}
+\usepackage{varwidth}
+
+%% Begin the document
+\begin{document}
+  \raggedright
+  \hbadness=10000 % to deal with underfull hbox warnings
+  \sloppy % use sloppy paras
+
+  % Title page
+  \pagenumbering{arabic} % Page numbers a arabic numerals
+  \pagenumbering{gobble} % Exclude number on first page
+
+  \begin{center}
+    \thispagestyle{firststyle}
+    \vspace*{2cm}
+    \large{\textbf{\ReportMeeting}}
+
+    \vspace*{0.25cm}
+    \large{\emph{\ReportLocation}}
+		
+    \vspace*{1cm}
+    \large{\textbf{\ReportNumber}} \\
+    \vspace*{0.5cm}	
+    \huge{\ReportTitle} \\
+    \vspace*{0.5cm}	
+    \large{\ReportAuthor}
+  \end{center}
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\linewidth}|p{0.75\linewidth}|}
+      \hline
+       % Use \CheckBoxTick OR \CheckBoxUntick to indicate Working paper or Information paper
+      \textbf{\color{blue}{Document type}} & Working paper                            \CheckBoxTick   \\
+                                           & Information paper                        \CheckBoxUntick \\
+      \hline
+       % Use \CheckBoxTick OR \CheckBoxUntick to indicate Puplic, Restricted, or Closed session
+      \textbf{\color{blue}{Distribution}}  & Public                                   \CheckBoxTick   \\
+                                           & Restricted \footnotemark[1]              \CheckBoxUntick \\
+                                           & Closed session document \footnotemark[2] \CheckBoxUntick \\
+      \hline
+      \multicolumn{2}{|l|}{\textbf{\color{blue}{Abstract}}} \\
+      \hline
+      % Add the recommendations to the file ReportAbstract.tex
+      \multicolumn{2}{|p{1.0\linewidth}|}{\input{ReportAbstract.tex}} \\
+      \hline
+    \end{tabular}%
+  \end{table}
+
+  % footnotes
+  \footnotetext[1]{Restricted documents may contain confidential information. Please do not distribute restricted documents in any form without the explicit permission of the SIOFA Secretariat and the data owner(s)/provider(s).}
+  \footnotetext[2]{Documents available only to members invited to closed sessions.}
+
+  \newpage
+  \pagestyle{fancyplain}
+  \fancyhf{}
+  \lhead{ \fancyplain{\ReportNumber}{\ReportNumber}}
+  \cfoot{\thepage}
+  \pagenumbering{arabic} % Page numbers a arabic numerals
+  \setcounter{page}{2} % Assume starts at page 2
+
+%  \begin{table}[H]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%      \hline
+%      \textbf{\color{blue}{Recommendations }}\color{blue}{(for proposals and working papers only)} \\
+%      \hline
+%      % Add the recommendations to the file ReportRecommendations.tex
+%      \input{ReportRecommendations.tex} \\
+%      \hline
+%    \end{tabular}%
+%  \end{table}
+
+  \newpage
+  % The report text from file ReportBody.tex
+  \include{ReportBody.tex}
+  
+  % Referencing
+  \bibliographystyle{apa} 
+    \renewcommand{\bibsection}{%
+	\section{References}}
+    \setcitestyle{round,aysep={},yysep={;}%
+  }
+  % Revise SIOFA.bib as required
+  \bibliography{bibliography/SIOFA.bib}
+
+\end{document}
+%% end
+
