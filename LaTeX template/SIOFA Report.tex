@@ -84,9 +84,10 @@
 \@addtoreset{equation}{section}
 \@addtoreset{figure}{section}
 \@addtoreset{table}{section}
-\def\thefigure{\thesection.\@arabic\c@figure}
-\def\thetable{\thesection.\@arabic\c@table}
-\def\theequation{\thesection.\@arabic\c@equation}
+%% Uncomment to use chapter numbers in equations, tables, and figures
+% \def\thefigure{\thesection.\@arabic\c@figure}
+% \def\thetable{\thesection.\@arabic\c@table}
+% \def\theequation{\thesection.\@arabic\c@equation}
 \makeatother
 
 %% stop figures from going onto a page by themselves 
@@ -172,7 +173,8 @@
   \newpage
   \pagestyle{fancyplain}
   \fancyhf{}
-  \lhead{ \fancyplain{\ReportNumber}{\ReportNumber}}
+  \lhead{\fancyplain{\ReportNumber}{\ReportNumber}}
+  \rhead{\fancyplain{\ReportShortTitle}{\ReportShortTitle}}
   \cfoot{\thepage}
   \pagenumbering{arabic} % Page numbers a arabic numerals
   \setcounter{page}{2} % Assume starts at page 2
