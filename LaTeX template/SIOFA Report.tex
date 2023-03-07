@@ -51,10 +51,10 @@
 %% Allow colour for HTML links
 \usepackage{xcolor}
 \definecolor{darkgray}{gray}{0.20}
-\definecolor{blue}{HTML}{2F5496} % Define blue colour for hedings etc.
+\definecolor{blue}{HTML}{2F5496} % Define blue colour for headings etc.
 
 %% Geometry for A4 layout like MS-Word defaults
-\usepackage[left=2.54cm,top=2.54cm,bottom=3.17cm,right=3.17cm]{geometry}
+\usepackage[left=2.54cm,top=2.54cm,bottom=3.17cm,right=3.17cm,headheight=1cm]{geometry}
 
 %% Natlib to better cite references (round brackets, commas between refs, and sorted)
 \usepackage[round,comma,sort]{natbib}
@@ -119,6 +119,11 @@
 %% Load this last to ensure its macros are not overwritten
 \usepackage{totpages} 
 
+% Packages to resolve copy/paste from pdfs
+\usepackage{microtype} % this removes the fi issue when copying from pdf 
+\DisableLigatures[f]{encoding=T1} % this removes the fi issue when copying from pdf 
+\usepackage[T1]{fontenc} % this removes the fi issue when copying from pdf 
+
 %% Begin the document
 \begin{document}
   \hbadness=10000 % to deal with underfull hbox warnings
@@ -153,7 +158,7 @@
       \textbf{\color{blue}{Document type}} & Working paper                            \CheckBoxTick   \\
                                            & Information paper                        \CheckBoxUntick \\
       \hline
-       % Use \CheckBoxTick OR \CheckBoxUntick to indicate Puplic, Restricted, or Closed session
+       % Use \CheckBoxTick OR \CheckBoxUntick to indicate Public, Restricted, or Closed session
       \textbf{\color{blue}{Distribution}}  & Public                                   \CheckBoxTick   \\
                                            & Restricted \footnotemark[1]              \CheckBoxUntick \\
                                            & Closed session document \footnotemark[2] \CheckBoxUntick \\
@@ -206,4 +211,3 @@
 
 \end{document}
 %% end
-
